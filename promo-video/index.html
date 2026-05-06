@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Fashion Store - Promociones Exclusivas</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #1a1a2e;
+        font-family: "Montserrat", sans-serif;
+      }
+      .scene-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 80px 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="15"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Scene 1: Logo Intro (0-3s) -->
+      <div
+        id="scene-1"
+        class="scene"
+        data-composition-id="scene1-intro"
+        data-composition-src="compositions/scene1-intro.html"
+        data-start="0"
+        data-duration="3"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- Scene 2: Explora Colección (3-6s) -->
+      <div
+        id="scene-2"
+        class="scene"
+        data-composition-id="scene2-explora"
+        data-composition-src="compositions/scene2-explora.html"
+        data-start="3"
+        data-duration="3"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- Scene 3: Compra Fácil (6-9s) -->
+      <div
+        id="scene-3"
+        class="scene"
+        data-composition-id="scene3-compra"
+        data-composition-src="compositions/scene3-compra.html"
+        data-start="6"
+        data-duration="3"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- Scene 4: Promociones Exclusivas (9-12s) -->
+      <div
+        id="scene-4"
+        class="scene"
+        data-composition-id="scene4-promos"
+        data-composition-src="compositions/scene4-promos.html"
+        data-start="9"
+        data-duration="3"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- Scene 5: CTA Final (12-15s) -->
+      <div
+        id="scene-5"
+        class="scene"
+        data-composition-id="scene5-cta"
+        data-composition-src="compositions/scene5-cta.html"
+        data-start="12"
+        data-duration="3"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const mainTl = gsap.timeline({ paused: true });
+
+      mainTl.from("#scene-1", { opacity: 0, duration: 0.5 }, 0);
+      mainTl.to("#scene-1", { opacity: 0, duration: 0.3 }, 2.7);
+
+      mainTl.from("#scene-2", { opacity: 0, duration: 0.5 }, 3);
+      mainTl.to("#scene-2", { opacity: 0, duration: 0.3 }, 5.7);
+
+      mainTl.from("#scene-3", { opacity: 0, duration: 0.5 }, 6);
+      mainTl.to("#scene-3", { opacity: 0, duration: 0.3 }, 8.7);
+
+      mainTl.from("#scene-4", { opacity: 0, duration: 0.5 }, 9);
+      mainTl.to("#scene-4", { opacity: 0, duration: 0.3 }, 11.7);
+
+      mainTl.from("#scene-5", { opacity: 0, duration: 0.5 }, 12);
+
+      window.__timelines["main"] = mainTl;
+    </script>
+  </body>
+</html>

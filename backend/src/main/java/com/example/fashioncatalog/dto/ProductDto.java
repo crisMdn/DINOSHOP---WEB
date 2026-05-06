@@ -40,4 +40,8 @@ public class ProductDto {
 
     @NotBlank(message = "La categoría es obligatoria")
     private String category;
+
+    private String imageUrl;
+
+    private Integer stock;
 }

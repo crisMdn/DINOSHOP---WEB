@@ -1,0 +1,84 @@
+<template id="scene2-explora-template">
+  <div data-composition-id="scene2-explora" data-width="1920" data-height="1080">
+    <style>
+      [data-composition-id="scene2-explora"] {
+        background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+      }
+      [data-composition-id="scene2-explora"] .title {
+        font-family: "Playfair Display", serif;
+        font-size: 72px;
+        font-weight: 700;
+        color: #ffffff;
+        text-align: center;
+      }
+      [data-composition-id="scene2-explora"] .subtitle {
+        font-family: "Montserrat", sans-serif;
+        font-size: 28px;
+        font-weight: 400;
+        color: #e94560;
+        letter-spacing: 4px;
+        margin-bottom: 60px;
+      }
+      [data-composition-id="scene2-explora"] .products-grid {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        align-items: center;
+      }
+      [data-composition-id="scene2-explora"] .product-card {
+        width: 200px;
+        height: 280px;
+        background: linear-gradient(145deg, #2a2a4a, #1a1a3a);
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #3a3a5a;
+      }
+      [data-composition-id="scene2-explora"] .product-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+      }
+      [data-composition-id="scene2-explora"] .product-label {
+        font-family: "Montserrat", sans-serif;
+        font-size: 16px;
+        color: #ffffff;
+        font-weight: 500;
+      }
+    </style>
+    <div class="scene-content">
+      <div class="subtitle">DESCUBRE</div>
+      <div class="title">Explora Nuestra Colección</div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-icon">👗</div>
+          <div class="product-label">Vestidos</div>
+        </div>
+        <div class="product-card">
+          <div class="product-icon">👚</div>
+          <div class="product-label">Blusas</div>
+        </div>
+        <div class="product-card">
+          <div class="product-icon">👖</div>
+          <div class="product-label">Pantalones</div>
+        </div>
+        <div class="product-card">
+          <div class="product-icon">🧥</div>
+          <div class="product-label">Abrigos</div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.from(".subtitle", { y: 30, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.from(".title", { y: 40, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+      tl.from(".product-card", { y: 60, opacity: 0, duration: 0.6, ease: "power2.out" }, 0.8);
+
+      window.__timelines["scene2-explora"] = tl;
+    </script>
+  </div>
+</template>

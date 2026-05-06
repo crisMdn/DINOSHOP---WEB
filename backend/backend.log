@@ -1,0 +1,65 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.example:fashion-catalog >---------------------
+[INFO] Building Fashion Catalog 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.7:run (default-cli) > test-compile @ fashion-catalog >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ fashion-catalog ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ fashion-catalog ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ fashion-catalog ---
+[INFO] skip non existing resourceDirectory C:\Users\rm210\Documents\Pagina shein\Tienda-de-ropa-main.zip\Tienda-de-ropa-main\backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ fashion-catalog ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.2.7:run (default-cli) < test-compile @ fashion-catalog <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.7:run (default-cli) @ fashion-catalog ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.7)
+
+2026-05-05T17:59:37.479-06:00  INFO 5224 --- [           main] c.e.fashioncatalog.CatalogApplication    : Starting CatalogApplication using Java 23.0.1 with PID 5224 (C:\Users\rm210\Documents\Pagina shein\Tienda-de-ropa-main.zip\Tienda-de-ropa-main\backend\target\classes started by rm210 in C:\Users\rm210\Documents\Pagina shein\Tienda-de-ropa-main.zip\Tienda-de-ropa-main\backend)
+2026-05-05T17:59:37.490-06:00  INFO 5224 --- [           main] c.e.fashioncatalog.CatalogApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-05-05T17:59:38.253-06:00  INFO 5224 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-05T17:59:38.253-06:00  INFO 5224 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-05T17:59:38.403-06:00  INFO 5224 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 138 ms. Found 2 JPA repository interfaces.
+2026-05-05T17:59:38.425-06:00  INFO 5224 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-05T17:59:38.425-06:00  INFO 5224 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-05T17:59:38.447-06:00  INFO 5224 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.fashioncatalog.repository.OrderRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-05T17:59:38.447-06:00  INFO 5224 --- [           main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.fashioncatalog.repository.ProductRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-05T17:59:38.447-06:00  INFO 5224 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-05-05T17:59:39.022-06:00  INFO 5224 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-05-05T17:59:39.040-06:00  INFO 5224 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-05T17:59:39.040-06:00  INFO 5224 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2026-05-05T17:59:39.111-06:00  INFO 5224 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-05T17:59:39.111-06:00  INFO 5224 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1563 ms
+2026-05-05T17:59:39.273-06:00  INFO 5224 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-05T17:59:39.321-06:00  INFO 5224 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.9.Final
+2026-05-05T17:59:39.353-06:00  INFO 5224 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-05T17:59:39.592-06:00  INFO 5224 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-05T17:59:39.623-06:00  INFO 5224 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-05T17:59:39.804-06:00  INFO 5224 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7ab2ba47
+2026-05-05T17:59:39.806-06:00  INFO 5224 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-05T17:59:39.841-06:00  WARN 5224 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-05T17:59:40.923-06:00  INFO 5224 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-05T17:59:41.031-06:00  INFO 5224 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+Hibernate: select p1_0.id,p1_0.category,p1_0.color,p1_0.description,p1_0.image_url,p1_0.measurements,p1_0.name,p1_0.price,p1_0.promo_price,p1_0.size,p1_0.stock from product p1_0
+2026-05-05T17:59:41.850-06:00  WARN 5224 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-05T17:59:42.264-06:00  INFO 5224 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-05-05T17:59:42.278-06:00  INFO 5224 --- [           main] c.e.fashioncatalog.CatalogApplication    : Started CatalogApplication in 5.234 seconds (process running for 5.656)

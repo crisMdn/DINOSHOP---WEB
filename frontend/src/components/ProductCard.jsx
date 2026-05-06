@@ -29,8 +29,9 @@ export default function ProductCard({ product, item, onAdd }) {
   const imageSources = useMemo(() => {
     if (productData.images && productData.images.length) return productData.images;
     if (productData.image) return [productData.image];
+    if (productData.imageUrl) return [productData.imageUrl];
     return imageMap[productData.category] || imageMap.default;
-  }, [productData.category, productData.image, productData.images]);
+  }, [productData.category, productData.image, productData.imageUrl, productData.images]);
 
   return (
     <div className="group relative overflow-hidden rounded-[2rem] bg-white border border-zinc-200 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">

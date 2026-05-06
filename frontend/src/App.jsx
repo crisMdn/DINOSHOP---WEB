@@ -136,7 +136,7 @@ function App() {
   }, []);
 
   const handleAddProduct = (product, selectedSize) => {
-    const item = { productId: product.id, size: selectedSize || product.size, quantity: 1, name: product.name, promoPrice: product.promoPrice, image: product.image };
+    const item = { productId: product.id, size: selectedSize || product.size, quantity: 1, name: product.name, promoPrice: product.promoPrice, image: product.image || product.imageUrl };
     setCart((prev) => {
       const exists = prev.find((entry) => entry.productId === product.id && entry.size === item.size);
       if (exists) return prev.map((entry) => entry.productId === product.id && entry.size === item.size ? { ...entry, quantity: entry.quantity + 1 } : entry);
@@ -250,7 +250,13 @@ function App() {
                      </div>
                    </div>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">{productos.map((p) => (<ProductCard key={p.id} item={p} onAdd={handleAddProduct} />))}</div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  {products.length === 0 ? (
+                    <p className="col-span-full text-center text-zinc-500 py-8">No hay productos disponibles</p>
+                  ) : (
+                    products.map((p) => (<ProductCard key={p.id} item={p} onAdd={handleAddProduct} />))
+                  )}
+                </div>
               </div>
             </main>
           ) : (

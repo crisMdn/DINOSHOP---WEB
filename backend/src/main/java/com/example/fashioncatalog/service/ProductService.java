@@ -43,6 +43,33 @@ public class ProductService {
                 .price(product.getPrice())
                 .promoPrice(product.getPromoPrice())
                 .category(product.getCategory())
+                .imageUrl(product.getImageUrl())
+                .stock(product.getStock())
                 .build();
+    }
+
+    public ProductDto updateProduct(Long id, Product product) {
+        Product existing = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado: " + id));
+        
+        existing.setName(product.getName());
+        existing.setDescription(product.getDescription());
+        existing.setColor(product.getColor());
+        existing.setSize(product.getSize());
+        existing.setMeasurements(product.getMeasurements());
+        existing.setPrice(product.getPrice());
+        existing.setPromoPrice(product.getPromoPrice());
+        existing.setCategory(product.getCategory());
+        existing.setImageUrl(product.getImageUrl());
+        existing.setStock(product.getStock());
+        
+        return mapToDto(productRepository.save(existing));
+    }
+
+    public void deleteProduct(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Producto no encontrado: " + id);
+        }
+        productRepository.deleteById(id);
     }
 }

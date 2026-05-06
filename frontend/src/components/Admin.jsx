@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import AdminProducts from './AdminProducts.jsx';
 
 const API_BASE = 'http://localhost:8080/api';
 
@@ -44,6 +45,7 @@ function AdminLogin({ onLogin }) {
 }
 
 function AdminDashboard() {
+  const [activeTab, setActiveTab] = useState('orders');
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [paymentFilter, setPaymentFilter] = useState('all');
@@ -176,10 +178,27 @@ function AdminDashboard() {
   return (
     <div className="min-h-screen bg-white px-4 py-8">
       <div className="mx-auto max-w-5xl">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-black">Admin - Pedidos</h1>
+        <div className="mb-6 flex items-center justify-between border-b border-zinc-200 pb-4">
+          <div className="flex gap-6">
+            <button
+              onClick={() => setActiveTab('orders')}
+              className={`text-sm font-medium ${activeTab === 'orders' ? 'text-black' : 'text-zinc-400'}`}
+            >
+              Pedidos
+            </button>
+            <button
+              onClick={() => setActiveTab('products')}
+              className={`text-sm font-medium ${activeTab === 'products' ? 'text-black' : 'text-zinc-400'}`}
+            >
+              Productos
+            </button>
+          </div>
           <button onClick={logout} className="text-sm text-zinc-500">Salir</button>
         </div>
+
+        {activeTab === 'orders' && (
+          <>
+          <h1 className="text-2xl font-semibold text-black">Admin - Pedidos</h1>
 
         <div className="mt-4 text-sm font-medium text-black">Filtrar por fecha:</div>
         <div className="mt-2 flex flex-wrap gap-2 overflow-x-auto pb-2">
@@ -352,6 +371,11 @@ function AdminDashboard() {
             </div>
           </div>
         )}
+
+        </>
+        )}
+
+        {activeTab === 'products' && <AdminProducts />}
 
         <div className="mt-8 text-center">
           <Link to="/" className="text-sm text-zinc-500">← Volver a la tienda</Link>
