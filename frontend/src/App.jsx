@@ -4,7 +4,7 @@ import ProductCard from './components/ProductCard.jsx';
 import CartDrawer from './components/CartDrawer.jsx';
 import Admin, { AdminLogin } from './components/Admin.jsx';
 
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = 'https://dinoshop-web-fp3q.onrender.com/';
 
 function OrderCheck() {
   const [searchParams] = useSearchParams();
