@@ -229,37 +229,37 @@ function App() {
           </nav>
 
           {view === 'home' ? (
-            <header aria-label="Página de inicio" className="relative overflow-hidden bg-white pt-28 pb-8 -mx-4 md:-mx-8">
-              <div className="relative flex min-h-[80vh] flex-col md:flex-row">
-                <div onClick={() => setView('mujer')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 bg-white h-[80vh]">
+            <header aria-label="Página de inicio" className="relative overflow-hidden bg-white pt-20 pb-6 -mx-4 md:mx-0 md:pt-28 md:pb-8">
+              <div className="relative flex flex-col md:flex-row min-h-[50vh] md:min-h-[80vh]">
+                <div onClick={() => setView('mujer')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 bg-white h-[50vh] md:h-[80vh]">
                   <div className="absolute inset-0 overflow-hidden bg-white"><img src="/the Oliver set.jfif" alt="Mujer" className="h-full w-full object-cover object-center transition duration-[1200ms] ease-out filter grayscale group-hover:grayscale-0 group-hover:scale-105" /></div>
                   <div className="absolute inset-0 bg-black/20" />
-                  <div className="relative flex min-h-[70vh] flex-col items-center justify-center px-8 text-center text-white">
-                    <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>MUJER</h1>
+                  <div className="relative flex h-full flex-col items-center justify-center px-4 md:px-8 text-center text-white">
+                    <h1 className="text-4xl md:text-5xl font-semibold tracking-tight sm:text-6xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>MUJER</h1>
                   </div>
                 </div>
-                <div onClick={() => setView('hombre')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 bg-white h-[80vh]">
+                <div onClick={() => setView('hombre')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 bg-white h-[50vh] md:h-[80vh]">
                   <div className="absolute inset-0 overflow-hidden bg-white"><img src="/descarga.jfif" alt="Hombre" className="h-full w-full object-cover object-top transition duration-[1200ms] ease-out filter grayscale group-hover:grayscale-0 group-hover:scale-105" /></div>
                   <div className="absolute inset-0 bg-black/20" />
-                  <div className="relative flex min-h-[70vh] flex-col items-center justify-center px-8 text-center text-white">
-                    <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>HOMBRE</h1>
+                  <div className="relative flex h-full flex-col items-center justify-center px-4 md:px-8 text-center text-white">
+                    <h1 className="text-4xl md:text-5xl font-semibold tracking-tight sm:text-6xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>HOMBRE</h1>
                   </div>
                 </div>
               </div>
             </header>
-          ) : view === 'mujer' ? (
-            <main id="main-content" role="main" aria-label="Colección de mujer" className="mx-auto max-w-7xl pt-24 py-10">
-              <div className="space-y-8">
-                <div className="flex flex-col gap-4 rounded-[2.5rem] border border-zinc-200 bg-black/5 p-8">
-                  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-<div>
-                       <p className="text-sm uppercase tracking-[0.35em] text-zinc-500">Mujer</p>
-                       <h2 className="mt-2 text-4xl font-semibold text-black">Colección de temporada</h2>
-                       <p className="mt-3 max-w-2xl text-base leading-7 text-zinc-700">Descubre nuestra selección de carteras, ropa y piezas clave para mujer.</p>
-                     </div>
-                   </div>
+) : view === 'mujer' ? (
+            <main id="main-content" role="main" aria-label="Colección de mujer" className="mx-auto max-w-7xl pt-16 md:pt-24 pb-8 px-3 md:px-8">
+              <div className="space-y-6 md:space-y-8">
+                <div className="flex flex-col gap-3 md:gap-4 rounded-2xl md:rounded-[2.5rem] border border-zinc-200 bg-black/5 p-5 md:p-8">
+                  <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <p className="text-sm uppercase tracking-[0.35em] text-zinc-500">Mujer</p>
+                        <h2 className="mt-1 md:mt-2 text-2xl md:text-4xl font-semibold text-black">Colección de temporada</h2>
+                        <p className="mt-2 md:mt-3 text-sm md:text-base leading-6 text-zinc-700">Descubre nuestra selección.</p>
+                      </div>
+                    </div>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
                   {loadingProducts ? (
                     <p className="col-span-full text-center text-zinc-500 py-8">Cargando productos...</p>
                   ) : productsError ? (
@@ -292,82 +292,82 @@ function App() {
 
           {showConfirmModal && cart.length > 0 && (
             <div role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
-              <div className="w-full max-w-md rounded-[2rem] bg-white p-8 shadow-2xl">
+              <div className="w-full max-w-md rounded-2xl md:rounded-[2rem] bg-white p-5 md:p-8 shadow-2xl">
                 <div className="text-center">
                   <p className="text-sm uppercase tracking-[0.3em] text-black">Confirmar compra</p>
-                  <h3 id="confirm-modal-title" className="mt-2 text-xl font-semibold text-black">¿Confirmar tu pedido?</h3>
-                  <p className="mt-3 text-zinc-600">Total: <span className="font-semibold text-black">${cart.reduce((sum, item) => sum + (item.promoPrice || 0) * item.quantity, 0).toFixed(2)}</span></p>
+                  <h3 id="confirm-modal-title" className="mt-2 text-lg md:text-xl font-semibold text-black">¿Confirmar tu pedido?</h3>
+                  <p className="mt-2 md:mt-3 text-zinc-600">Total: <span className="font-semibold text-black">${cart.reduce((sum, item) => sum + (item.promoPrice || 0) * item.quantity, 0).toFixed(2)}</span></p>
                 </div>
-                <div className="mt-6 flex gap-3">
-                  <button onClick={() => { setShowConfirmModal(false); setShowTransferModal(true); }} className="flex-1 rounded-full bg-black px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-900">Sí, continuar</button>
-                  <button onClick={() => setShowConfirmModal(false)} className="flex-1 rounded-full border border-zinc-200 px-5 py-3 text-sm font-semibold text-black transition hover:bg-zinc-100">Cancelar</button>
+                <div className="mt-5 md:mt-6 flex gap-3">
+                  <button onClick={() => { setShowConfirmModal(false); setShowTransferModal(true); }} className="flex-1 rounded-full bg-black px-5 py-3 md:py-4 text-sm font-semibold text-white transition hover:bg-zinc-900 active:scale-95">Sí, continuar</button>
+                  <button onClick={() => setShowConfirmModal(false)} className="flex-1 rounded-full border border-zinc-200 px-5 py-3 md:py-4 text-sm font-semibold text-black transition hover:bg-zinc-100 active:scale-95">Cancelar</button>
                 </div>
               </div>
             </div>
           )}
 
           {showTransferModal && (
-            <div role="dialog" aria-modal="true" aria-labelledby="transfer-modal-title" className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
-              <div className="w-full max-w-2xl rounded-[2rem] bg-white p-8 shadow-2xl">
+            <div role="dialog" aria-modal="true" aria-labelledby="transfer-modal-title" className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-3 md:p-4 overflow-y-auto">
+              <div className="w-full max-w-2xl rounded-2xl md:rounded-[2rem] bg-white p-5 md:p-8 shadow-2xl my-4">
                 {!orderResult ? (
                   <>
                     <div className="flex items-start justify-between gap-4">
-                      <div><p className="text-sm uppercase tracking-[0.3em] text-black">Datos del cliente</p><h3 id="transfer-modal-title" className="mt-2 text-2xl font-semibold text-black">Completa tus datos</h3></div>
-                      <button onClick={() => { setShowTransferModal(false); setOrderResult(null); }} className="rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-zinc-100">Cerrar</button>
+                      <div><p className="text-sm uppercase tracking-[0.3em] text-black">Datos del cliente</p><h3 id="transfer-modal-title" className="mt-1 md:mt-2 text-xl md:text-2xl font-semibold text-black">Completa tus datos</h3></div>
+                      <button onClick={() => { setShowTransferModal(false); setOrderResult(null); }} className="rounded-full border border-zinc-200 bg-white px-3 md:px-4 py-2 text-sm font-semibold text-black transition hover:bg-zinc-100">✕</button>
                     </div>
-                    <div className="mt-6 space-y-4">
-                      <input type="text" placeholder="Tu nombre" value={clientForm.name} onChange={(e) => setClientForm(prev => ({ ...prev, name: e.target.value }))} className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-black placeholder-zinc-400" />
-                      <input type="tel" placeholder="Tu teléfono (WhatsApp)" value={clientForm.phone} onChange={(e) => setClientForm(prev => ({ ...prev, phone: e.target.value }))} className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-black placeholder-zinc-400" />
-                      <input type="email" placeholder="Tu correo electrónico" value={clientForm.email} onChange={(e) => setClientForm(prev => ({ ...prev, email: e.target.value }))} className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-black placeholder-zinc-400" />
+                    <div className="mt-5 md:mt-6 space-y-3 md:space-y-4">
+                      <input type="text" placeholder="Tu nombre" value={clientForm.name} onChange={(e) => setClientForm(prev => ({ ...prev, name: e.target.value }))} className="w-full rounded-xl md:rounded-2xl border border-zinc-200 bg-white px-4 py-3 md:py-4 text-black placeholder-zinc-400 text-base touch-manipulation" />
+                      <input type="tel" placeholder="Tu teléfono (WhatsApp)" value={clientForm.phone} onChange={(e) => setClientForm(prev => ({ ...prev, phone: e.target.value }))} className="w-full rounded-xl md:rounded-2xl border border-zinc-200 bg-white px-4 py-3 md:py-4 text-black placeholder-zinc-400 text-base touch-manipulation" />
+                      <input type="email" placeholder="Tu correo electrónico" value={clientForm.email} onChange={(e) => setClientForm(prev => ({ ...prev, email: e.target.value }))} className="w-full rounded-xl md:rounded-2xl border border-zinc-200 bg-white px-4 py-3 md:py-4 text-black placeholder-zinc-400 text-base touch-manipulation" />
                       
-                      <div className="space-y-3 pt-2">
+                      <div className="space-y-2 md:space-y-3 pt-1 md:pt-2">
                         <p className="text-sm font-medium text-black">Forma de pago:</p>
                         <div className="flex gap-2">
-                          <button onClick={() => setPaymentMethod('transferencia')} className={`flex-1 rounded-2xl border px-4 py-3 text-sm ${paymentMethod === 'transferencia' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Transferencia</button>
-                          <button onClick={() => setPaymentMethod('contraentrega')} className={`flex-1 rounded-2xl border px-4 py-3 text-sm ${paymentMethod === 'contraentrega' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Contraentrega</button>
+                          <button onClick={() => setPaymentMethod('transferencia')} className={`flex-1 rounded-xl border px-3 md:px-4 py-3 text-sm touch-manipulation ${paymentMethod === 'transferencia' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Transferencia</button>
+                          <button onClick={() => setPaymentMethod('contraentrega')} className={`flex-1 rounded-xl border px-3 md:px-4 py-3 text-sm touch-manipulation ${paymentMethod === 'contraentrega' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Contraentrega</button>
                         </div>
                       </div>
                       
-                      <div className="space-y-3 pt-2">
+                      <div className="space-y-2 md:space-y-3 pt-1 md:pt-2">
                         <p className="text-sm font-medium text-black">Tipo de entrega:</p>
                         <div className="flex gap-2">
-                          <button onClick={() => setDeliveryForm(prev => ({ ...prev, type: 'PICKUP' }))} className={`flex-1 rounded-2xl border px-4 py-3 text-sm ${deliveryForm.type === 'PICKUP' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Punto de encuentro</button>
-                          <button onClick={() => setDeliveryForm(prev => ({ ...prev, type: 'DELIVERY' }))} className={`flex-1 rounded-2xl border px-4 py-3 text-sm ${deliveryForm.type === 'DELIVERY' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Domicilio</button>
+                          <button onClick={() => setDeliveryForm(prev => ({ ...prev, type: 'PICKUP' }))} className={`flex-1 rounded-xl border px-2 md:px-4 py-3 text-xs md:text-sm touch-manipulation ${deliveryForm.type === 'PICKUP' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Punto</button>
+                          <button onClick={() => setDeliveryForm(prev => ({ ...prev, type: 'DELIVERY' }))} className={`flex-1 rounded-xl border px-2 md:px-4 py-3 text-xs md:text-sm touch-manipulation ${deliveryForm.type === 'DELIVERY' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Domicilio</button>
                         </div>
                       </div>
                       
                       {deliveryForm.type === 'DELIVERY' && (
-                        <input type="text" placeholder="Colonia / barrio" value={deliveryForm.address} onChange={(e) => setDeliveryForm(prev => ({ ...prev, address: e.target.value }))} className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-black placeholder-zinc-400" />
+                        <input type="text" placeholder="Colonia / barrio" value={deliveryForm.address} onChange={(e) => setDeliveryForm(prev => ({ ...prev, address: e.target.value }))} className="w-full rounded-xl md:rounded-2xl border border-zinc-200 bg-white px-4 py-3 md:py-4 text-black placeholder-zinc-400 text-base touch-manipulation" />
                       )}
                       
-                      <button onClick={handleCheckout} disabled={creatingOrder || !clientForm.name || (deliveryForm.type === 'DELIVERY' && !deliveryForm.address)} className="w-full rounded-full bg-black px-5 py-4 text-sm font-semibold text-white transition hover:bg-zinc-900 disabled:opacity-50">{creatingOrder ? 'Creando orden...' : 'Continuar'}</button>
+                      <button onClick={handleCheckout} disabled={creatingOrder || !clientForm.name || (deliveryForm.type === 'DELIVERY' && !deliveryForm.address)} className="w-full rounded-full bg-black px-5 py-4 md:py-5 text-base font-semibold text-white transition hover:bg-zinc-900 disabled:opacity-50 touch-manipulation active:scale-95">{creatingOrder ? 'Creando orden...' : 'Continuar'}</button>
                     </div>
                   </>
                 ) : (
                   <>
                     <div className="flex items-start justify-between gap-4">
-                      <div><p className="text-sm uppercase tracking-[0.3em] text-black">Orden creada</p><h3 id="transfer-modal-title" className="mt-2 text-2xl font-semibold text-black">{orderResult.orderNumber}</h3></div>
-                      <button onClick={() => { setShowTransferModal(false); setOrderResult(null); setClientForm({ name: '', phone: '', email: '' }); setCart([]); setPaymentMethod('transferencia'); setDeliveryForm({ type: 'PICKUP', address: '' }); }} className="rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-zinc-100">Cerrar</button>
+                      <div><p className="text-sm uppercase tracking-[0.3em] text-black">Orden creada</p><h3 id="transfer-modal-title" className="mt-1 md:mt-2 text-xl md:text-2xl font-semibold text-black">{orderResult.orderNumber}</h3></div>
+                      <button onClick={() => { setShowTransferModal(false); setOrderResult(null); setClientForm({ name: '', phone: '', email: '' }); setCart([]); setPaymentMethod('transferencia'); setDeliveryForm({ type: 'PICKUP', address: '' }); }} className="rounded-full border border-zinc-200 bg-white px-3 md:px-4 py-2 text-sm font-semibold text-black transition hover:bg-zinc-100">✕</button>
                     </div>
                     
                     {paymentMethod === 'contraentrega' && (
-                      <div className="mt-6 rounded-[1.75rem] border border-yellow-200 bg-yellow-50 p-6">
-                        <p className="text-lg font-semibold text-yellow-800">Pagar al recibir</p>
-                        <p className="mt-2 text-sm text-yellow-700">El pago se realizará al momento de la entrega.</p>
+                      <div className="mt-4 md:mt-6 rounded-xl md:rounded-[1.75rem] border border-yellow-200 bg-yellow-50 p-4 md:p-6">
+                        <p className="text-base md:text-lg font-semibold text-yellow-800">Pagar al recibir</p>
+                        <p className="mt-1 md:mt-2 text-sm text-yellow-700">El pago se realizará al momento de la entrega.</p>
                       </div>
                     )}
                     
                     {paymentMethod === 'transferencia' && (
-                      <div className="mt-6 space-y-5 rounded-[1.75rem] border border-zinc-200 bg-white p-6">
-                        <div><p className="text-sm text-black">Realiza tu pago</p><p className="mt-2 text-lg font-semibold text-black">Banco Aura</p><p className="text-sm text-black">Número de cuenta: <span className="font-semibold">1234 5678 9012 3456</span></p><p className="text-sm text-black">Total a pagar: <span className="font-semibold">${orderResult?.total?.toFixed(2) || '0.00'}</span></p></div>
+                      <div className="mt-4 md:mt-6 space-y-3 md:space-y-5 rounded-xl md:rounded-[1.75rem] border border-zinc-200 bg-white p-4 md:p-6">
+                        <div><p className="text-sm text-black">Realiza tu pago</p><p className="mt-1 md:mt-2 text-base md:text-lg font-semibold text-black">Banco Aura</p><p className="text-sm text-black">Número: <span className="font-semibold">1234 5678 9012 3456</span></p><p className="text-sm text-black">Total: <span className="font-semibold">${orderResult?.total?.toFixed(2) || '0.00'}</span></p></div>
                       </div>
                     )}
                     
                     {orderResult.deliveryType === 'PICKUP' && (
-                      <div className="mt-4 rounded-[1.75rem] border border-zinc-200 bg-white p-6">
+                      <div className="mt-4 rounded-xl md:rounded-[1.75rem] border border-zinc-200 bg-white p-4 md:p-6">
                         <p className="text-sm text-black">Punto de entrega:</p>
-                        <p className="mt-2 text-lg font-semibold text-black">Parque Sonsonate</p>
-                        <p className="text-sm text-zinc-600">Te notificaremos por WhatsApp cuando tu pedido esté listo para recoge</p>
+                        <p className="mt-1 md:mt-2 text-base md:text-lg font-semibold text-black">Parque Sonsonate</p>
+                        <p className="text-xs md:text-sm text-zinc-600">Te notificaremos por WhatsApp</p>
                       </div>
                     )}
                     
