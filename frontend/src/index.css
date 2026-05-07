@@ -5,7 +5,11 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
+}
+
+:root.dark {
+  color-scheme: dark;
 }
 
 body {
@@ -15,12 +19,49 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
+.dark body {
+  background-color: #000000;
+  color: #ffffff;
+}
+
 h1, h2, h3, h4 {
   font-family: 'Playfair Display', Georgia, serif;
 }
 
 button {
   transition: all 0.2s ease-in-out;
+}
+
+@keyframes theme-expand {
+  0% {
+    clip-path: circle(0% at 50% 50%);
+  }
+  100% {
+    clip-path: circle(150% at 50% 50%);
+  }
+}
+
+.theme-transition {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-transition::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #000000;
+  clip-path: circle(0% at 50% 50%);
+  z-index: -1;
+  transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .theme-transition::before {
+  background: #000000;
+}
+
+.theme-transition.active::before {
+  clip-path: circle(150% at 50% 50%);
 }
 
 @media (prefers-reduced-motion: reduce) {

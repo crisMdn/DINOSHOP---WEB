@@ -114,10 +114,34 @@ function App() {
   const [paymentMethod, setPaymentMethod] = useState('transferencia');
   const [orderResult, setOrderResult] = useState(null);
   const [creatingOrder, setCreatingOrder] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('darkMode');
+      if (saved !== null) return saved === 'true';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
   const cartPulseTimer = useRef(null);
   const mainRef = useRef(null);
 
   const handleSkipToMain = () => { mainRef.current?.focus(); };
+
+  const toggleDarkMode = () => {
+    setDarkMode(prev => {
+      const newValue = !prev;
+      localStorage.setItem('darkMode', String(newValue));
+      return newValue;
+    });
+  };
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
@@ -210,13 +234,24 @@ function App() {
       <Route path="/admin/login" element={<AdminLogin onLogin={() => {}} />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="*" element={
-        <div className="min-h-screen bg-white px-4 text-black md:px-8">
+        <div className="min-h-screen bg-white dark:bg-black px-4 text-black dark:text-white md:px-8">
           <a href="#main-content" onClick={handleSkipToMain} className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-black focus:text-white focus:px-4 focus:py-2 focus:rounded-full">Saltar al contenido principal</a>
-          <nav role="navigation" aria-label="Navegación principal" className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled ? 'bg-white/95 shadow-sm' : 'bg-transparent'}`}>
+          <nav role="navigation" aria-label="Navegación principal" className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled ? 'bg-white/95 dark:bg-black/95 shadow-sm' : 'bg-transparent'}`}>
             <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
-              <button onClick={() => setView('home')} className="text-sm font-semibold uppercase tracking-[0.35em] text-black transition hover:text-zinc-700">DinoShop</button>
-              <div className="flex items-center gap-4">
-                <button onClick={() => setDrawerOpen(true)} aria-label={`Abrir carrito, ${cart.length} productos`} className={`relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-black transition-transform duration-400 ease-out hover:bg-zinc-100 ${cartPulse ? 'scale-125' : 'scale-100'}`}>
+              <button onClick={() => setView('home')} className="text-sm font-semibold uppercase tracking-[0.35em] text-black dark:text-white transition hover:text-zinc-700">DinoShop</button>
+              <div className="flex items-center gap-3 md:gap-4">
+                <button onClick={toggleDarkMode} aria-label={darkMode ? 'Modo claro' : 'Modo oscuro'} className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-black dark:text-white transition-transform duration-400 hover:scale-110">
+                  {darkMode ? (
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                      <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707.707M12 7a5 5 0 100 10 5 5 0 000-10z" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                  )}
+                </button>
+                <button onClick={() => setDrawerOpen(true)} aria-label={`Abrir carrito, ${cart.length} productos`} className={`relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-black dark:text-white transition-transform duration-400 ease-out hover:bg-zinc-100 dark:hover:bg-zinc-700 ${cartPulse ? 'scale-125' : 'scale-100'}`}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5"><path d="M6 6h15l-1.5 9h-12L6 6z" /><path d="M9 22a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" /></svg>
                   {cart.length > 0 && (
                     <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black text-xs font-bold text-white">
@@ -229,17 +264,17 @@ function App() {
           </nav>
 
           {view === 'home' ? (
-            <header aria-label="Página de inicio" className="relative overflow-hidden bg-white pt-16 pb-2 -mx-4 md:mx-0 md:pt-28 md:pb-8">
+            <header aria-label="Página de inicio" className="relative overflow-hidden bg-white dark:bg-black pt-16 pb-2 -mx-4 md:mx-0 md:pt-28 md:pb-8">
               <div className="relative flex flex-col md:flex-row min-h-[55vh] md:min-h-[80vh]">
-                <div onClick={() => setView('mujer')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 bg-white h-[55vh] md:h-[80vh]">
-                  <div className="absolute inset-0 overflow-hidden bg-white"><img src="/the Oliver set.jfif" alt="Mujer" className="h-full w-full object-cover object-center transition duration-[1200ms] ease-out filter grayscale group-hover:grayscale-0 group-hover:scale-105" /></div>
+                <div onClick={() => setView('mujer')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black h-[55vh] md:h-[80vh]">
+                  <div className="absolute inset-0 overflow-hidden bg-white dark:bg-black"><img src="/the Oliver set.jfif" alt="Mujer" className="h-full w-full object-cover object-center transition duration-[1200ms] ease-out filter grayscale group-hover:grayscale-0 group-hover:scale-105" /></div>
                   <div className="absolute inset-0 bg-black/20" />
                   <div className="relative flex h-full flex-col items-center justify-center px-4 md:px-8 text-center text-white">
                     <h1 className="text-4xl md:text-5xl font-semibold tracking-tight sm:text-6xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>MUJER</h1>
                   </div>
                 </div>
-                <div onClick={() => setView('hombre')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 bg-white h-[55vh] md:h-[80vh]">
-                  <div className="absolute inset-0 overflow-hidden bg-white"><img src="/descarga.jfif" alt="Hombre" className="h-full w-full object-cover object-top transition duration-[1200ms] ease-out filter grayscale group-hover:grayscale-0 group-hover:scale-105" /></div>
+                <div onClick={() => setView('hombre')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black h-[55vh] md:h-[80vh]">
+                  <div className="absolute inset-0 overflow-hidden bg-white dark:bg-black"><img src="/descarga.jfif" alt="Hombre" className="h-full w-full object-cover object-top transition duration-[1200ms] ease-out filter grayscale group-hover:grayscale-0 group-hover:scale-105" /></div>
                   <div className="absolute inset-0 bg-black/20" />
                   <div className="relative flex h-full flex-col items-center justify-center px-4 md:px-8 text-center text-white">
                     <h1 className="text-4xl md:text-5xl font-semibold tracking-tight sm:text-6xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>HOMBRE</h1>
@@ -250,12 +285,12 @@ function App() {
 ) : view === 'mujer' ? (
             <main id="main-content" role="main" aria-label="Colección de mujer" className="mx-auto max-w-7xl pt-16 md:pt-24 pb-8 px-3 md:px-8">
               <div className="space-y-6 md:space-y-8">
-                <div className="flex flex-col gap-3 md:gap-4 rounded-2xl md:rounded-[2.5rem] border border-zinc-200 bg-black/5 p-5 md:p-8">
+                <div className="flex flex-col gap-3 md:gap-4 rounded-2xl md:rounded-[2.5rem] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-5 md:p-8">
                   <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <div>
                         <p className="text-sm uppercase tracking-[0.35em] text-zinc-500">Mujer</p>
-                        <h2 className="mt-1 md:mt-2 text-2xl md:text-4xl font-semibold text-black">Colección de temporada</h2>
-                        <p className="mt-2 md:mt-3 text-sm md:text-base leading-6 text-zinc-700">Descubre nuestra selección.</p>
+                        <h2 className="mt-1 md:mt-2 text-2xl md:text-4xl font-semibold text-black dark:text-white">Colección de temporada</h2>
+                        <p className="mt-2 md:mt-3 text-sm md:text-base leading-6 text-zinc-700 dark:text-zinc-300">Descubre nuestra selección.</p>
                       </div>
                     </div>
                 </div>
