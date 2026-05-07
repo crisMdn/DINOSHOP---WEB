@@ -216,9 +216,13 @@ function App() {
             <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
               <button onClick={() => setView('home')} className="text-sm font-semibold uppercase tracking-[0.35em] text-black transition hover:text-zinc-700">DinoShop</button>
               <div className="flex items-center gap-4">
-                <Link to="/admin/login" className="text-xs text-zinc-400">Admin</Link>
-                <button onClick={() => setDrawerOpen(true)} aria-label={`Abrir carrito, ${cart.length} productos`} className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-black transition-transform duration-400 ease-out hover:bg-zinc-100 ${cartPulse ? 'scale-125' : 'scale-100'}`}>
+                <button onClick={() => setDrawerOpen(true)} aria-label={`Abrir carrito, ${cart.length} productos`} className={`relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-black transition-transform duration-400 ease-out hover:bg-zinc-100 ${cartPulse ? 'scale-125' : 'scale-100'}`}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5"><path d="M6 6h15l-1.5 9h-12L6 6z" /><path d="M9 22a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" /></svg>
+                  {cart.length > 0 && (
+                    <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black text-xs font-bold text-white">
+                      {cart.length}
+                    </span>
+                  )}
                 </button>
               </div>
             </div>
