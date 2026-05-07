@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = 'https://dinoshop-web-fp3q.onrender.com/api';
 
 const initialForm = {
   name: '',

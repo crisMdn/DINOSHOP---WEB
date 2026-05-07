@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminProducts from './AdminProducts.jsx';
 
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = 'https://dinoshop-web-fp3q.onrender.com/api';
 
 function AdminLogin({ onLogin }) {
   const [username, setUsername] = useState('admin');

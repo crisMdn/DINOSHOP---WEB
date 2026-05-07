@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ProductForm from './ProductForm.jsx';
 
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = 'https://dinoshop-web-fp3q.onrender.com/api';
 
 export default function AdminProducts() {
   const [products, setProducts] = useState([]);
