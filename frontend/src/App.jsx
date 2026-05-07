@@ -265,19 +265,19 @@ function App() {
 
           {view === 'home' ? (
             <header aria-label="Página de inicio" className="relative overflow-hidden bg-white dark:bg-black pt-16 pb-2 -mx-4 md:mx-0 md:pt-28 md:pb-8">
-              <div className="relative flex flex-col md:flex-row min-h-[55vh] md:min-h-[80vh]">
-                <div onClick={() => setView('mujer')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black h-[55vh] md:h-[80vh]">
+              <div className="relative flex flex-col md:flex-row min-h-[65vh] md:min-h-[80vh]">
+                <div onClick={() => setView('mujer')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black h-[65vh] md:h-[80vh]">
                   <div className="absolute inset-0 overflow-hidden bg-white dark:bg-black"><img src="/the Oliver set.jfif" alt="Mujer" className="h-full w-full object-cover object-center transition duration-[1200ms] ease-out filter grayscale group-hover:grayscale-0 group-hover:scale-105" /></div>
                   <div className="absolute inset-0 bg-black/20" />
-                  <div className="relative flex h-full flex-col items-center justify-center px-4 md:px-8 text-center text-white">
-                    <h1 className="text-4xl md:text-5xl font-semibold tracking-tight sm:text-6xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>MUJER</h1>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <h1 className="text-5xl md:text-5xl font-semibold tracking-tight sm:text-6xl text-white text-center" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>MUJER</h1>
                   </div>
                 </div>
-                <div onClick={() => setView('hombre')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black h-[55vh] md:h-[80vh]">
+                <div onClick={() => setView('hombre')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black h-[65vh] md:h-[80vh]">
                   <div className="absolute inset-0 overflow-hidden bg-white dark:bg-black"><img src="/descarga.jfif" alt="Hombre" className="h-full w-full object-cover object-top transition duration-[1200ms] ease-out filter grayscale group-hover:grayscale-0 group-hover:scale-105" /></div>
                   <div className="absolute inset-0 bg-black/20" />
-                  <div className="relative flex h-full flex-col items-center justify-center px-4 md:px-8 text-center text-white">
-                    <h1 className="text-4xl md:text-5xl font-semibold tracking-tight sm:text-6xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>HOMBRE</h1>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <h1 className="text-5xl md:text-5xl font-semibold tracking-tight sm:text-6xl text-white text-center" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>HOMBRE</h1>
                   </div>
                 </div>
               </div>
