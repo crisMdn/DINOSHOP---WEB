@@ -264,7 +264,7 @@ function App() {
           </nav>
 
           {view === 'home' ? (
-            <header aria-label="Página de inicio" className="relative overflow-hidden bg-white dark:bg-black pt-16 pb-2 -mx-4 md:mx-0 md:pt-28 md:pb-8">
+            <header aria-label="Página de inicio" className="relative overflow-hidden bg-white dark:bg-black pt-20 pb-2 -mx-4 md:mx-0 md:pt-28 md:pb-8">
               <div className="relative flex flex-col md:flex-row min-h-[70vh] md:min-h-[80vh]">
                 <div onClick={() => setView('mujer')} className="group cursor-pointer relative flex-1 overflow-hidden border-[0.5px] border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black h-[70vh] md:h-[80vh]">
                   <div className="absolute inset-0 overflow-hidden bg-white dark:bg-black"><img src="/the Oliver set.jfif" alt="Mujer" className="h-full w-full object-cover object-center transition duration-[1200ms] ease-out filter grayscale group-hover:grayscale-0 group-hover:scale-105" /></div>
