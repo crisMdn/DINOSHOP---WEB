@@ -6,14 +6,6 @@ import Admin, { AdminLogin } from './components/Admin.jsx';
 
 const API_BASE = 'http://localhost:8080/api';
 
-const productos = [
-  { id: 1, name: 'Cartera Minimalista', category: 'Cartera', description: 'Cartera negra de líneas limpias.', color: 'Negro', measurements: '28x18x10 cm', price: 16.99, promoPrice: 10.99, size: 'Única', image: '/cartera1.jfif' },
-  { id: 2, name: 'Bolso de Mano Negro', category: 'Cartera', description: 'Bolso de mano negro sofisticado.', color: 'Negro', measurements: '30x20x12 cm', price: 16.99, promoPrice: 10.99, size: 'Única', image: '/cartera2.jfif' },
-  { id: 3, name: 'Cartera Premium Beige', category: 'Cartera', description: 'Cartera premium en beige.', color: 'Beige', measurements: '26x16x8 cm', price: 16.99, promoPrice: 10.99, size: 'Única', image: '/cartera 3.jfif' },
-  { id: 4, name: 'Conjunto Blusas Minimal', category: 'Blusas', description: 'Conjunto minimalista de oficina.', color: 'Blanco y Negro', measurements: 'S/M/L', price: 16.99, promoPrice: 10.99, size: 'S/M/L', image: '/blusasconjunto.jfif' },
-  { id: 5, name: 'Blusa Estilo Zara', category: 'Blusas', description: 'Blusa de corte moderno.', color: 'Crudo', measurements: 'S/M/L', price: 16.99, promoPrice: 10.99, size: 'S/M/L', image: '/blusasconjunto2.jfif' },
-];
-
 function OrderCheck() {
   const [searchParams] = useSearchParams();
   const orderId = searchParams.get('id');
@@ -108,6 +100,8 @@ function OrderCheck() {
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [productsError, setProductsError] = useState(null);
   const [cart, setCart] = useState([]);
   const [cartPulse, setCartPulse] = useState(false);
   const [showTransferModal, setShowTransferModal] = useState(false);
@@ -132,7 +126,18 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch(`${API_BASE}/products`).then((res) => res.json()).then(setProducts).catch(() => null);
+    setLoadingProducts(true);
+    fetch(`${API_BASE}/products`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Error del servidor');
+        return res.json();
+      })
+      .then(setProducts)
+      .catch((err) => {
+        console.error('Error cargando productos:', err);
+        setProductsError(err.message);
+      })
+      .finally(() => setLoadingProducts(false));
   }, []);
 
   const handleAddProduct = (product, selectedSize) => {
@@ -251,7 +256,11 @@ function App() {
                    </div>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                  {products.length === 0 ? (
+                  {loadingProducts ? (
+                    <p className="col-span-full text-center text-zinc-500 py-8">Cargando productos...</p>
+                  ) : productsError ? (
+                    <p className="col-span-full text-center text-red-500 py-8">Error: {productsError}</p>
+                  ) : products.length === 0 ? (
                     <p className="col-span-full text-center text-zinc-500 py-8">No hay productos disponibles</p>
                   ) : (
                     products.map((p) => (<ProductCard key={p.id} item={p} onAdd={handleAddProduct} />))

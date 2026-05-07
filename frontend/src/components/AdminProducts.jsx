@@ -16,7 +16,7 @@ export default function AdminProducts() {
 
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
-    if (token !== 'admin123') {
+    if (!token) {
       navigate('/admin/login');
       return;
     }

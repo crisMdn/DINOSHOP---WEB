@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/fashion_catalog
-    username: postgres
-    password: Toby123$
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:fashion_catalog}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -13,8 +13,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
   jackson:
     serialization:
       indent-output: true
@@ -23,6 +23,9 @@ server:
   port: 8080
 
 app:
+  admin:
+    username: ${ADMIN_USERNAME:admin}
+    password: ${ADMIN_PASSWORD:}
   notification:
     whatsapp-token: ${WHATSAPP_TOKEN:}
     whatsapp-phone: ${WHATSAPP_PHONE:}

@@ -32,7 +32,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    private ProductDto mapToDto(Product product) {
+    public ProductDto mapToDto(Product product) {
         return ProductDto.builder()
                 .id(product.getId())
                 .name(product.getName())

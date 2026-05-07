@@ -5,18 +5,34 @@ import AdminProducts from './AdminProducts.jsx';
 const API_BASE = 'http://localhost:8080/api';
 
 function AdminLogin({ onLogin }) {
+  const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === 'admin123') {
-      localStorage.setItem('adminToken', 'admin123');
-      onLogin(true);
-      navigate('/admin');
-    } else {
-      setError('Contraseña incorrecta');
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch(`${API_BASE}/admin/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem('adminToken', data.token);
+        onLogin(true);
+        navigate('/admin');
+      } else {
+        setError(data.message || 'Contraseña incorrecta');
+      }
+    } catch (err) {
+      setError('Error de conexión');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -24,8 +40,15 @@ function AdminLogin({ onLogin }) {
     <div className="min-h-screen bg-white px-4 py-20">
       <div className="mx-auto max-w-sm rounded-[2rem] border border-zinc-200 bg-white p-8">
         <h1 className="text-2xl font-semibold text-black">Admin</h1>
-        <p className="mt-2 text-zinc-600">Ingresa tu contraseña</p>
+        <p className="mt-2 text-zinc-600">Ingresa tus credenciales</p>
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Usuario"
+            className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-black"
+          />
           <input
             type="password"
             value={password}
@@ -34,8 +57,8 @@ function AdminLogin({ onLogin }) {
             className="w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-black"
           />
           {error && <p className="text-sm text-red-600">{error}</p>}
-          <button type="submit" className="w-full rounded-full bg-black px-5 py-3 text-sm font-semibold text-white">
-            Entrar
+          <button type="submit" disabled={loading} className="w-full rounded-full bg-black px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">
+            {loading ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
         <Link to="/" className="mt-4 block text-center text-sm text-zinc-500">Volver a la tienda</Link>
@@ -58,7 +81,7 @@ function AdminDashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
-    if (token !== 'admin123') {
+    if (!token) {
       navigate('/admin/login');
       return;
     }
