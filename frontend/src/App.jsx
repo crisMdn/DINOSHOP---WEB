@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Routes, Route, useSearchParams, Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from './components/ProductCard.jsx';
 import CartDrawer from './components/CartDrawer.jsx';
 import Admin, { AdminLogin } from './components/Admin.jsx';
@@ -123,23 +122,17 @@ function App() {
     }
     return false;
   });
-  const [themeAnimation, setThemeAnimation] = useState({ active: false, x: 0, y: 0 });
   const cartPulseTimer = useRef(null);
   const mainRef = useRef(null);
 
   const handleSkipToMain = () => { mainRef.current?.focus(); };
 
-  const toggleDarkMode = (e) => {
-    const button = e.currentTarget;
-    const rect = button.getBoundingClientRect();
-    setThemeAnimation({ active: true, x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-    setTimeout(() => {
-      setDarkMode(prev => {
-        const newValue = !prev;
-        localStorage.setItem('darkMode', String(newValue));
-        return newValue;
-      });
-    }, 50);
+  const toggleDarkMode = () => {
+    setDarkMode(prev => {
+      const newValue = !prev;
+      localStorage.setItem('darkMode', String(newValue));
+      return newValue;
+    });
   };
 
   useEffect(() => {
@@ -429,19 +422,6 @@ function App() {
           )}
         </div>
       } />
-      <AnimatePresence>
-        {themeAnimation.active && (
-          <motion.div
-            initial={{ clipPath: `circle(0% at ${themeAnimation.x}px ${themeAnimation.y}px)` }}
-            animate={{ clipPath: `circle(150% at ${themeAnimation.x}px ${themeAnimation.y}px)` }}
-            exit={{ clipPath: `circle(0% at ${themeAnimation.x}px ${themeAnimation.y}px)` }}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed inset-0 pointer-events-none z-[9999]"
-            style={{ backgroundColor: darkMode ? '#000000' : '#ffffff' }}
-            onAnimationComplete={() => setThemeAnimation({ active: false, x: 0, y: 0 })}
-          />
-        )}
-      </AnimatePresence>
     </Routes>
   );
 }
