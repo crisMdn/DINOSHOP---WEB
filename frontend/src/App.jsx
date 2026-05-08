@@ -124,14 +124,14 @@ function App() {
     return false;
   });
   const [themeAnimation, setThemeAnimation] = useState({ active: false, x: 0, y: 0 });
-  const themeBtnRef = useRef(null);
   const cartPulseTimer = useRef(null);
   const mainRef = useRef(null);
 
   const handleSkipToMain = () => { mainRef.current?.focus(); };
 
   const toggleDarkMode = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
     setThemeAnimation({ active: true, x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
     setTimeout(() => {
       setDarkMode(prev => {
@@ -139,7 +139,7 @@ function App() {
         localStorage.setItem('darkMode', String(newValue));
         return newValue;
       });
-    }, 100);
+    }, 50);
   };
 
   useEffect(() => {
@@ -247,7 +247,7 @@ function App() {
             <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
               <button onClick={() => setView('home')} className="text-sm font-semibold uppercase tracking-[0.35em] text-black dark:text-white transition hover:text-zinc-700">DinoShop</button>
               <div className="flex items-center gap-3 md:gap-4">
-                <button onClick={toggleDarkMode} aria-label={darkMode ? 'Modo claro' : 'Modo oscuro'} className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-black dark:text-white transition-transform duration-400 hover:scale-110" ref={themeBtnRef}>
+                <button onClick={toggleDarkMode} aria-label={darkMode ? 'Modo claro' : 'Modo oscuro'} className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-black dark:text-white transition-transform duration-400 hover:scale-110">
                   {darkMode ? (
                     <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
                       <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707.707M12 7a5 5 0 100 10 5 5 0 000-10z" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
@@ -290,7 +290,7 @@ function App() {
               </div>
             </header>
 ) : view === 'mujer' ? (
-            <main id="main-content" role="main" aria-label="Colección de mujer" className="mx-auto max-w-7xl pt-20 md:pt-24 pb-8 px-3 md:px-8">
+            <main id="main-content" role="main" aria-label="Colección de mujer" className="mx-auto max-w-7xl pt-16 md:pt-24 pb-8 px-3 md:px-8">
               <div className="space-y-6 md:space-y-8">
                 <div className="flex flex-col gap-3 md:gap-4 rounded-2xl md:rounded-[2.5rem] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-5 md:p-8">
                   <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
@@ -345,9 +345,90 @@ function App() {
                   <button onClick={() => setShowConfirmModal(false)} className="flex-1 rounded-full border border-zinc-200 px-5 py-3 md:py-4 text-sm font-semibold text-black transition hover:bg-zinc-100 active:scale-95">Cancelar</button>
                 </div>
               </div>
-</div>
-      }
+            </div>
+          )}
 
+          {showTransferModal && (
+            <div role="dialog" aria-modal="true" aria-labelledby="transfer-modal-title" className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-3 md:p-4 overflow-y-auto">
+              <div className="w-full max-w-2xl rounded-2xl md:rounded-[2rem] bg-white p-5 md:p-8 shadow-2xl my-4">
+                {!orderResult ? (
+                  <>
+                    <div className="flex items-start justify-between gap-4">
+                      <div><p className="text-sm uppercase tracking-[0.3em] text-black">Datos del cliente</p><h3 id="transfer-modal-title" className="mt-1 md:mt-2 text-xl md:text-2xl font-semibold text-black">Completa tus datos</h3></div>
+                      <button onClick={() => { setShowTransferModal(false); setOrderResult(null); }} className="rounded-full border border-zinc-200 bg-white px-3 md:px-4 py-2 text-sm font-semibold text-black transition hover:bg-zinc-100">✕</button>
+                    </div>
+                    <div className="mt-5 md:mt-6 space-y-3 md:space-y-4">
+                      <input type="text" placeholder="Tu nombre" value={clientForm.name} onChange={(e) => setClientForm(prev => ({ ...prev, name: e.target.value }))} className="w-full rounded-xl md:rounded-2xl border border-zinc-200 bg-white px-4 py-3 md:py-4 text-black placeholder-zinc-400 text-base touch-manipulation" />
+                      <input type="tel" placeholder="Tu teléfono (WhatsApp)" value={clientForm.phone} onChange={(e) => setClientForm(prev => ({ ...prev, phone: e.target.value }))} className="w-full rounded-xl md:rounded-2xl border border-zinc-200 bg-white px-4 py-3 md:py-4 text-black placeholder-zinc-400 text-base touch-manipulation" />
+                      <input type="email" placeholder="Tu correo electrónico" value={clientForm.email} onChange={(e) => setClientForm(prev => ({ ...prev, email: e.target.value }))} className="w-full rounded-xl md:rounded-2xl border border-zinc-200 bg-white px-4 py-3 md:py-4 text-black placeholder-zinc-400 text-base touch-manipulation" />
+                      
+                      <div className="space-y-2 md:space-y-3 pt-1 md:pt-2">
+                        <p className="text-sm font-medium text-black">Forma de pago:</p>
+                        <div className="flex gap-2">
+                          <button onClick={() => setPaymentMethod('transferencia')} className={`flex-1 rounded-xl border px-3 md:px-4 py-3 text-sm touch-manipulation ${paymentMethod === 'transferencia' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Transferencia</button>
+                          <button onClick={() => setPaymentMethod('contraentrega')} className={`flex-1 rounded-xl border px-3 md:px-4 py-3 text-sm touch-manipulation ${paymentMethod === 'contraentrega' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Contraentrega</button>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2 md:space-y-3 pt-1 md:pt-2">
+                        <p className="text-sm font-medium text-black">Tipo de entrega:</p>
+                        <div className="flex gap-2">
+                          <button onClick={() => setDeliveryForm(prev => ({ ...prev, type: 'PICKUP' }))} className={`flex-1 rounded-xl border px-2 md:px-4 py-3 text-xs md:text-sm touch-manipulation ${deliveryForm.type === 'PICKUP' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Punto</button>
+                          <button onClick={() => setDeliveryForm(prev => ({ ...prev, type: 'DELIVERY' }))} className={`flex-1 rounded-xl border px-2 md:px-4 py-3 text-xs md:text-sm touch-manipulation ${deliveryForm.type === 'DELIVERY' ? 'border-black bg-black text-white' : 'border-zinc-200 text-black'}`}>Domicilio</button>
+                        </div>
+                      </div>
+                      
+                      {deliveryForm.type === 'DELIVERY' && (
+                        <input type="text" placeholder="Colonia / barrio" value={deliveryForm.address} onChange={(e) => setDeliveryForm(prev => ({ ...prev, address: e.target.value }))} className="w-full rounded-xl md:rounded-2xl border border-zinc-200 bg-white px-4 py-3 md:py-4 text-black placeholder-zinc-400 text-base touch-manipulation" />
+                      )}
+                      
+                      <button onClick={handleCheckout} disabled={creatingOrder || !clientForm.name || (deliveryForm.type === 'DELIVERY' && !deliveryForm.address)} className="w-full rounded-full bg-black px-5 py-4 md:py-5 text-base font-semibold text-white transition hover:bg-zinc-900 disabled:opacity-50 touch-manipulation active:scale-95">{creatingOrder ? 'Creando orden...' : 'Continuar'}</button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex items-start justify-between gap-4">
+                      <div><p className="text-sm uppercase tracking-[0.3em] text-black">Orden creada</p><h3 id="transfer-modal-title" className="mt-1 md:mt-2 text-xl md:text-2xl font-semibold text-black">{orderResult.orderNumber}</h3></div>
+                      <button onClick={() => { setShowTransferModal(false); setOrderResult(null); setClientForm({ name: '', phone: '', email: '' }); setCart([]); setPaymentMethod('transferencia'); setDeliveryForm({ type: 'PICKUP', address: '' }); }} className="rounded-full border border-zinc-200 bg-white px-3 md:px-4 py-2 text-sm font-semibold text-black transition hover:bg-zinc-100">✕</button>
+                    </div>
+                    
+                    {paymentMethod === 'contraentrega' && (
+                      <div className="mt-4 md:mt-6 rounded-xl md:rounded-[1.75rem] border border-yellow-200 bg-yellow-50 p-4 md:p-6">
+                        <p className="text-base md:text-lg font-semibold text-yellow-800">Pagar al recibir</p>
+                        <p className="mt-1 md:mt-2 text-sm text-yellow-700">El pago se realizará al momento de la entrega.</p>
+                      </div>
+                    )}
+                    
+                    {paymentMethod === 'transferencia' && (
+                      <div className="mt-4 md:mt-6 space-y-3 md:space-y-5 rounded-xl md:rounded-[1.75rem] border border-zinc-200 bg-white p-4 md:p-6">
+                        <div><p className="text-sm text-black">Realiza tu pago</p><p className="mt-1 md:mt-2 text-base md:text-lg font-semibold text-black">Banco Aura</p><p className="text-sm text-black">Número: <span className="font-semibold">1234 5678 9012 3456</span></p><p className="text-sm text-black">Total: <span className="font-semibold">${orderResult?.total?.toFixed(2) || '0.00'}</span></p></div>
+                      </div>
+                    )}
+                    
+                    {orderResult.deliveryType === 'PICKUP' && (
+                      <div className="mt-4 rounded-xl md:rounded-[1.75rem] border border-zinc-200 bg-white p-4 md:p-6">
+                        <p className="text-sm text-black">Punto de entrega:</p>
+                        <p className="mt-1 md:mt-2 text-base md:text-lg font-semibold text-black">Parque Sonsonate</p>
+                        <p className="text-xs md:text-sm text-zinc-600">Te notificaremos por WhatsApp</p>
+                      </div>
+                    )}
+                    
+                    {orderResult.deliveryType === 'DELIVERY' && (
+                      <div className="mt-4 rounded-[1.75rem] border border-zinc-200 bg-white p-6">
+                        <p className="text-sm text-black">Entrega a domicilio:</p>
+                        <p className="mt-2 text-lg font-semibold text-black">{orderResult.deliveryAddress}</p>
+                        <p className="text-sm text-zinc-600">El costo de envío se coordina al entregar.</p>
+                      </div>
+                    )}
+                    
+                    <button onClick={() => { const msg = encodeURIComponent(`Hola! Acabo de crear la orden ${orderResult.orderNumber} por $${orderResult?.total?.toFixed(2) || '0.00'}. ${orderResult.deliveryType === 'PICKUP' ? 'Recogeré en Parque Sonsonate' : 'Entrega en: ' + orderResult.deliveryAddress}. Mis datos: ${clientForm.name}, ${clientForm.phone}`); window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank'); }} className="mt-6 w-full rounded-full bg-green-600 px-5 py-4 text-sm font-semibold text-white transition hover:bg-green-700">Enviar por WhatsApp</button>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      } />
       <AnimatePresence>
         {themeAnimation.active && (
           <motion.div
