@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+//estos son los campos que se van a mostrar en el frontend, se utilizan para validar los datos que se reciben del frontend, y para mapear los datos del modelo Product al modelo ProductDto, lo que permite separar la lógica de negocio de la lógica de presentación y mejorar la seguridad al no exponer directamente la entidad Product al frontend
 @Data
 @Builder
 @NoArgsConstructor

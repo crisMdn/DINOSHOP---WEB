@@ -4,8 +4,10 @@ import ProductCard from './components/ProductCard.jsx';
 import CartDrawer from './components/CartDrawer.jsx';
 import Admin, { AdminLogin } from './components/Admin.jsx';
 
-const API_BASE = 'https://dinoshop-web-fp3q.onrender.com/api';
+const API_BASE = 'https://dinoshop-web-fp3q.onrender.com/api'; // Cambia esto a tu URL de backend
 
+
+// Componente para verificar el estado de una orden usando el ID en la URL
 function OrderCheck() {
   const [searchParams] = useSearchParams();
   const orderId = searchParams.get('id');
@@ -29,6 +31,7 @@ function OrderCheck() {
       .finally(() => setLoading(false));
   }, [orderId]);
 
+  // Mapeo de estados a estilos de color
   const statusColors = {
     PENDING: 'bg-yellow-100 text-yellow-800',
     PAID: 'bg-green-100 text-green-800',
@@ -98,6 +101,7 @@ function OrderCheck() {
   );
 }
 
+// Componente principal de la aplicación
 function App() {
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
@@ -122,11 +126,16 @@ function App() {
     }
     return false;
   });
+
+  // Ref para manejar el pulso del carrito sin perder el valor en re-renderizados
   const cartPulseTimer = useRef(null);
+  // Ref para el enlace de "Saltar al contenido principal"
   const mainRef = useRef(null);
 
+  // Función para manejar el salto al contenido principal
   const handleSkipToMain = () => { mainRef.current?.focus(); };
 
+    // Función para alternar el modo oscuro y guardarlo en localStorage
   const toggleDarkMode = () => {
     setDarkMode(prev => {
       const newValue = !prev;
@@ -135,6 +144,7 @@ function App() {
     });
   };
 
+  // Efecto para aplicar o remover la clase 'dark' en el elemento raíz según el estado de darkMode
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -164,6 +174,8 @@ function App() {
       .finally(() => setLoadingProducts(false));
   }, []);
 
+
+  // Función para agregar un producto al carrito, con manejo de cantidad si ya existe el mismo producto y talla
   const handleAddProduct = (product, selectedSize) => {
     const item = { productId: product.id, size: selectedSize || product.size, quantity: 1, name: product.name, promoPrice: product.promoPrice, image: product.image || product.imageUrl };
     setCart((prev) => {
@@ -176,6 +188,7 @@ function App() {
     cartPulseTimer.current = window.setTimeout(() => setCartPulse(false), 300);
   };
 
+  // Función para actualizar la cantidad de un producto en el carrito, eliminándolo si la cantidad llega a cero
   const handleUpdateQuantity = (productId, size, delta) => {
     setCart((prev) => {
       return prev.map((entry) => {
@@ -189,15 +202,18 @@ function App() {
     });
   };
 
+  // Función para eliminar un producto del carrito
   const handleRemove = (productId, size) => {
     setCart((prev) => prev.filter((item) => !(item.productId === productId && item.size === size)));
   };
 
+    // Función para compartir el resumen del carrito por WhatsApp
   const handleShare = (summary, total) => {
     const message = encodeURIComponent(`Hola! Te comparto mi carrito:\n${summary}\nTotal: $${total.toFixed(2)}`);
     window.open(`https://api.whatsapp.com/send?text=${message}`, '_blank');
   };
 
+  // Función para manejar el proceso de checkout, creando la orden en el backend y mostrando el resultado
   const handleCheckout = async () => {
     if (cart.length === 0) return;
     setCreatingOrder(true);
@@ -226,6 +242,7 @@ function App() {
     }
   };
 
+// Memorización de los productos destacados para evitar cálculos innecesarios en re-renderizados
   const featured = useMemo(() => products.slice(0, 4), [products]);
 
   return (
@@ -262,7 +279,7 @@ function App() {
               </div>
             </div>
           </nav>
-
+                    
           {view === 'home' ? (
             <header aria-label="Página de inicio" className="relative overflow-hidden bg-white dark:bg-black pt-20 pb-2 -mx-4 md:mx-0 md:pt-28 md:pb-8">
               <div className="relative flex flex-col md:flex-row min-h-[70vh] md:min-h-[80vh]">
@@ -322,7 +339,7 @@ function App() {
               </div>
             </main>
           )}
-
+          
           <CartDrawer isOpen={drawerOpen} cart={{ items: cart }} onClose={() => setDrawerOpen(false)} onRemove={handleRemove} onUpdateQuantity={handleUpdateQuantity} onCheckout={() => setShowConfirmModal(true)} onShare={handleShare} />
 
           {showConfirmModal && cart.length > 0 && (
@@ -426,4 +443,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; // Exportamos el componente principal de la aplicación

@@ -1,57 +1,67 @@
-# AGENTS.md
+# DinoShop - Agent Instructions
 
-## URLs de Producción
+## Production URLs
 
 - **Frontend**: https://dinoshop-web.onrender.com
 - **Backend API**: https://dinoshop-web-fp3q.onrender.com/api
 - **PostgreSQL**: fashion-db en Render (90-day free tier)
 
-## Estructura del Proyecto
+## Project Structure
 
-- `backend/` - Spring Boot 3.2.7 API (Java 21)
-- `frontend/` - React 18 + Vite + Tailwind UI + Framer Motion
+| Directory | Tech | Purpose |
+|-----------|------|---------|
+| `backend/` | Spring Boot 3.2.7 (Java 21) | REST API |
+| `frontend/` | React 18 + Vite + Tailwind | E-commerce UI |
+| `promo-video/` | HyperFrames | Promo video generation |
 
-## Configuración de Producción
-
-### Render SPA Routing
-Render **NO** soporta `_redirects` file. Configurar Redirects/Rewrites en el Dashboard de Render:
-| Source | Destination | Action |
-|--------|------------|--------|
-| `/*` | `/index.html` | **Rewrite** |
-| `/admin/*` | `/index.html` | **Rewrite** |
-| `/check/*` | `/index.html` | **Rewrite** |
-
-### Dark Mode
-- Implementado en `App.jsx` con estado `darkMode` y localStorage persistence
-- Animación de circular reveal con Framer Motion (importar de `framer-motion`)
-- Toggle button en navbar (derecha del carrito)
-- Colores: bg-black (#000000), text-white (#ffffff) en modo oscuro
-- Tailwind `darkMode: 'class'` configurado en `tailwind.config.js`
-
-## Requisitos Previos (Desarrollo Local)
-
-- Java 21, Maven, Node.js 18+
-- PostgreSQL (puerto 5432, db: `fashion_catalog`)
-- Redis (puerto 6379)
-- Configurar `backend/.env` con credenciales
-
-## Comandos
+## Commands
 
 ```bash
-# Backend
+# Backend (requires PostgreSQL + Redis running)
 cd backend && mvn spring-boot:run
 
 # Frontend
 cd frontend && npm install && npm run dev
+
+# Promo video
+cd promo-video && npm run dev      # studio editor
+cd promo-video && npm run check   # lint + validate
+cd promo-video && npm run render # render MP4
 ```
 
-## Build y Deploy
+## Render Deployment
 
-- Frontend: hacer commit a GitHub, Render rebuild automáticamente
-- Backend: deploy automático desde branch main
+**SPA routing requires Dashboard config** (no `_redirects` file):
+| Source | Destination | Action |
+|--------|-------------|--------|
+| `/*` | `/index.html` | Rewrite |
+| `/admin/*` | `/index.html` | Rewrite |
+| `/check/*` | `/index.html` | Rewrite |
 
-## Errores Comunes
+## Dark Mode
 
-- **Build fails en 404**: Verificar Redirects/Rewrites en Dashboard de Render
-- **CORS errors**: Verificar WebConfig.java permite el dominio
-- **Productos no cargan**: Backend debe estar corriendo + PostgreSQL conectado
+- Toggle button in navbar (right of cart)
+- Persisted to localStorage
+- Animated with Framer Motion's `layoutId`
+- Tailwind uses `darkMode: 'class'` (manual toggle)
+
+## Local Setup
+
+1. Copy `backend/.env.example` to `backend/.env`
+2. Configure DB credentials (PostgreSQL port 5432, db: `fashion_catalog`)
+3. Redis on port 6379
+
+## Common Issues
+
+- **404 on refresh**: Verify Render Redirects/Rewrites config
+- **CORS errors**: Check `WebConfig.java` allows your domain
+- **Products not loading**: Backend down or PostgreSQL disconnected
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/products` | List products |
+| POST | `/api/orders` | Create order |
+| GET | `/api/orders/{id}` | Order status |
+| POST | `/api/admin/login` | Admin auth |
