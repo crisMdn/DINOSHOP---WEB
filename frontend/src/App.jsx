@@ -255,7 +255,7 @@ function App() {
           <a href="#main-content" onClick={handleSkipToMain} className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-black focus:text-white focus:px-4 focus:py-2 focus:rounded-full">Saltar al contenido principal</a>
           <nav role="navigation" aria-label="Navegación principal" className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled ? 'bg-white/95 dark:bg-black/95 shadow-sm' : 'bg-transparent'}`}>
             <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
-              <button onClick={() => setView('home')} className="text-sm font-semibold uppercase tracking-[0.35em] text-black dark:text-white transition hover:text-zinc-700">DinoShop</button>
+              <button onClick={() => setView('home')} className="font-boska text-sm font-semibold uppercase tracking-[0.35em] text-black dark:text-white transition hover:text-zinc-700">DinoShop</button>
               <div className="flex items-center gap-3 md:gap-4">
                 <button onClick={toggleDarkMode} aria-label={darkMode ? 'Modo claro' : 'Modo oscuro'} className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-black dark:text-white transition-transform duration-400 hover:scale-110">
                   {darkMode ? (
