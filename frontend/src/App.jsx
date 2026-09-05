@@ -301,42 +301,25 @@ function App() {
             </header>
 ) : view === 'mujer' ? (
             <main id="main-content" role="main" aria-label="Colección de mujer" className="mx-auto max-w-7xl pt-16 md:pt-24 pb-8 px-3 md:px-8">
-              <div className="space-y-6 md:space-y-8">
-                <div className="flex flex-col gap-3 md:gap-4 rounded-2xl md:rounded-[2.5rem] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 p-5 md:p-8">
-                  <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                    <div>
-                        <p className="text-sm uppercase tracking-[0.35em] text-zinc-500">Mujer</p>
-                        <h2 className="mt-1 md:mt-2 text-2xl md:text-4xl font-semibold text-black dark:text-white">Colección de temporada</h2>
-                        <p className="mt-2 md:mt-3 text-sm md:text-base leading-6 text-zinc-700 dark:text-zinc-300">Descubre nuestra selección.</p>
-                      </div>
-                    </div>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                  {loadingProducts ? (
-                    <p className="col-span-full text-center text-zinc-500 py-8">Cargando productos...</p>
-                  ) : productsError ? (
-                    <p className="col-span-full text-center text-red-500 py-8">Error: {productsError}</p>
-                  ) : products.length === 0 ? (
-                    <p className="col-span-full text-center text-zinc-500 py-8">No hay productos disponibles</p>
-                  ) : (
-                    products.map((p) => (<ProductCard key={p.id} item={p} onAdd={handleAddProduct} />))
-                  )}
-                </div>
+              <p className="text-sm uppercase tracking-[0.35em] text-zinc-500">THE NEW</p>
+              <h2 className="mt-1 md:mt-2 text-2xl md:text-4xl font-semibold font-panchang text-black dark:text-white">Colección de temporada</h2>
+              <div className="mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                {loadingProducts ? (
+                  <p className="col-span-full text-center text-zinc-500 py-8">Cargando productos...</p>
+                ) : productsError ? (
+                  <p className="col-span-full text-center text-red-500 py-8">Error: {productsError}</p>
+                ) : products.length === 0 ? (
+                  <p className="col-span-full text-center text-zinc-500 py-8">No hay productos disponibles</p>
+                ) : (
+                  products.map((p) => (<ProductCard key={p.id} item={p} onAdd={handleAddProduct} />))
+                )}
               </div>
             </main>
           ) : (
-            <main id="main-content" role="main" aria-label="Sección de hombre" className="mx-auto max-w-7xl pt-24 py-10">
-              <div className="space-y-8">
-                <div className="flex flex-col gap-4 rounded-[2.5rem] border border-zinc-200 bg-black/5 p-8">
-                  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-<div>
-                       <p className="text-sm uppercase tracking-[0.35em] text-zinc-500">Hombre</p>
-                       <h2 className="mt-2 text-4xl font-semibold text-black">Próximamente</h2>
-                       <p className="mt-3 max-w-2xl text-base leading-7 text-zinc-700">Próximamente: Nueva línea masculina.</p>
-                     </div>
-                   </div>
-                </div>
-              </div>
+            <main id="main-content" role="main" aria-label="Sección de hombre" className="mx-auto max-w-7xl pt-24 py-10 px-3 md:px-8">
+              <p className="text-sm uppercase tracking-[0.35em] text-zinc-500">Hombre</p>
+              <h2 className="mt-2 text-4xl font-semibold font-panchang text-black">Próximamente</h2>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-zinc-700">Próximamente: Nueva línea masculina.</p>
             </main>
           )}
           

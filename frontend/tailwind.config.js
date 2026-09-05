@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         boska: ['Boska', 'serif'],
+        panchang: ['Panchang', 'sans-serif'],
       },
     },
   },
