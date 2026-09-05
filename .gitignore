@@ -1,0 +1,16 @@
+# Java
+*.class
+target/
+
+# Node
+node_modules/
+dist/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.iml
+.AGENTS.md
+.skills-lock.json
+

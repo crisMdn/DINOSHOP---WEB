@@ -1,0 +1,8 @@
+# robots.txt
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://dinoshop.com/sitemap.xml

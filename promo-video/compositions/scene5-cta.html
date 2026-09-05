@@ -1,0 +1,73 @@
+<template id="scene5-cta-template">
+  <div data-composition-id="scene5-cta" data-width="1920" data-height="1080">
+    <style>
+      [data-composition-id="scene5-cta"] {
+        background: linear-gradient(180deg, #1a1a2e 0%, #0f3460 100%);
+      }
+      [data-composition-id="scene5-cta"] .title {
+        font-family: "Playfair Display", serif;
+        font-size: 72px;
+        font-weight: 700;
+        color: #ffffff;
+        text-align: center;
+      }
+      [data-composition-id="scene5-cta"] .cta-button {
+        font-family: "Montserrat", sans-serif;
+        font-size: 28px;
+        font-weight: 600;
+        color: #ffffff;
+        background: linear-gradient(135deg, #e94560, #ff6b6b);
+        padding: 24px 60px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin: 40px 0;
+        box-shadow: 0 15px 40px rgba(233, 69, 96, 0.4);
+      }
+      [data-composition-id="scene5-cta"] .url {
+        font-family: "Montserrat", sans-serif;
+        font-size: 36px;
+        font-weight: 400;
+        color: #e94560;
+        letter-spacing: 2px;
+      }
+      [data-composition-id="scene5-cta"] .social {
+        display: flex;
+        gap: 20px;
+        margin-top: 30px;
+      }
+      [data-composition-id="scene5-cta"] .social-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 28px;
+      }
+    </style>
+    <div class="scene-content">
+      <div class="title">Visítanos Ahora</div>
+      <div class="cta-button">Explorar Colección</div>
+      <div class="url">fashionstore.com</div>
+      <div class="social">
+        <div class="social-icon">📸</div>
+        <div class="social-icon">🐦</div>
+        <div class="social-icon">📘</div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.from(".title", { y: 40, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+      tl.from(".cta-button", { scale: 0.8, opacity: 0, duration: 0.8, ease: "elastic.out(1, 0.6)" }, 0.6);
+      tl.from(".url", { y: 20, opacity: 0, duration: 0.6, ease: "power2.out" }, 1);
+      tl.from(".social-icon", { scale: 0, opacity: 0, duration: 0.4, ease: "back.out(1.7)" }, 1.2);
+
+      window.__timelines["scene5-cta"] = tl;
+    </script>
+  </div>
+</template>

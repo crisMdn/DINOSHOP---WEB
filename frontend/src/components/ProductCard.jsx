@@ -1,0 +1,94 @@
+import React, { useMemo, useState } from 'react';
+
+const imageMap = {
+  Cartera: [
+    'https://images.unsplash.com/photo-1520962919502-0c015403e71f?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1555529771-5e37f49cd0c8?auto=format&fit=crop&w=900&q=80',
+  ],
+  Camisas: [
+    'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1495121605193-b116b5b9c5b2?auto=format&fit=crop&w=900&q=80',
+  ],
+  default: [
+    'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+  ],
+};
+
+export default function ProductCard({ product, item, onAdd }) {
+  const productData = item || product;
+
+  const sizeOptions = useMemo(() => {
+    if (!productData.size) return ['Única'];
+    return productData.size.includes('/')
+      ? productData.size.split('/').map((size) => size.trim())
+      : [productData.size];
+  }, [productData.size]);
+
+  const [selectedSize, setSelectedSize] = useState(sizeOptions[0] || 'Única');
+
+  const imageSources = useMemo(() => {
+    if (productData.images && productData.images.length) return productData.images;
+    if (productData.image) return [productData.image];
+    if (productData.imageUrl) return [productData.imageUrl];
+    return imageMap[productData.category] || imageMap.default;
+  }, [productData.category, productData.image, productData.imageUrl, productData.images]);
+
+  return (
+    <div className="group relative overflow-hidden rounded-2xl md:rounded-[2rem] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+      <div className="space-y-2 md:space-y-4 p-2 md:p-6">
+        <div className="rounded-2xl md:rounded-[2rem] bg-zinc-50 dark:bg-zinc-800 p-1 md:p-4 shadow-sm">
+          <div className="flex snap-x gap-2 md:gap-3 overflow-x-auto pb-2">
+            {imageSources.map((src, index) => (
+              <div key={index} className="snap-start min-w-[140px] md:min-w-[180px] shrink-0 overflow-hidden rounded-xl md:rounded-[1.75rem] border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-700">
+                <img src={src} alt={`${productData.name} ${index + 1}`} className="h-32 md:h-40 w-full object-cover transition" />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="rounded-2xl md:rounded-[2rem] bg-zinc-50 dark:bg-zinc-800 p-2 md:p-6">
+          <div className="flex flex-col justify-between text-left">
+            <div>
+              <p className="text-xs uppercase tracking-[0.35em] text-zinc-500">{productData.category}</p>
+              <h3 className="mt-1 md:mt-4 text-lg md:text-2xl font-semibold text-black dark:text-white">{productData.name}</h3>
+            </div>
+            <div className="mt-2 md:mt-6 grid gap-1 text-xs md:text-sm text-zinc-600 dark:text-zinc-400">
+              <p className="line-clamp-2">{productData.description}</p>
+              <p><strong>Color:</strong> {productData.color}</p>
+              <p><strong>Medidas:</strong> {productData.measurements}</p>
+            </div>
+          </div>
+        </div>
+        <div className="grid gap-2 md:gap-4 rounded-2xl md:rounded-[2rem] bg-zinc-50 dark:bg-zinc-800 p-2 md:p-4 text-xs md:text-sm text-zinc-600 dark:text-zinc-400 shadow-sm">
+          <label className="font-semibold text-black dark:text-white text-sm">Talla</label>
+          <select
+            value={selectedSize}
+            onChange={(e) => setSelectedSize(e.target.value)}
+            className="rounded-2xl md:rounded-3xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-2 md:px-4 py-2 md:py-3 text-black dark:text-white outline-none focus:border-black dark:focus:border-white touch-manipulation"
+          >
+            {sizeOptions.map((size) => (
+              <option key={size} value={size}>{size}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div className="space-y-2 md:space-y-4 p-2 md:p-6">
+        <div className="flex items-center justify-between gap-3 md:gap-4">
+          <div>
+            <p className="text-xs md:text-sm text-zinc-500">Precio</p>
+            <div className="flex items-baseline gap-2 md:gap-4">
+              <span className="text-xs md:text-zinc-500 line-through">${productData.price.toFixed(2)}</span>
+              <span className="text-lg md:text-2xl font-semibold text-black dark:text-white">${productData.promoPrice.toFixed(2)}</span>
+            </div>
+          </div>
+          <div className="rounded-full bg-black dark:bg-white px-2 md:px-4 py-1 md:py-2 text-[10px] md:text-xs uppercase tracking-[0.25em] text-white dark:text-black">PROMO</div>
+        </div>
+        <button
+          onClick={() => onAdd(productData, selectedSize)}
+          className="w-full rounded-2xl md:rounded-3xl bg-black dark:bg-white px-4 md:px-5 py-3 md:py-4 text-sm md:text-base font-semibold text-white dark:text-black shadow-sm transition hover:bg-zinc-900 dark:hover:bg-zinc-200 touch-manipulation active:scale-95"
+        >
+          Añadir
+        </button>
+      </div>
+    </div>
+  );
+}
